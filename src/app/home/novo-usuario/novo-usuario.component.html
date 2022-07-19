@@ -1,0 +1,78 @@
+<h4 class="text-center">Registre-se e mostre seu PET</h4>
+
+<form class="form mt-4" [formGroup]="novoUsuarioForm" (submit)="cadastrar()">
+  <div class="form-group left-inner-addon">
+    <input placeholder="e-mail" class="form-control" formControlName="email" />
+    <h6>
+      <app-mensagem
+        *ngIf="
+          novoUsuarioForm.get('email')?.errors?.required &&
+          novoUsuarioForm.get('email')?.touched
+        "
+        mensagem="E-mail obrigatorio"
+      ></app-mensagem>
+      <app-mensagem
+        *ngIf="
+          novoUsuarioForm.get('email')?.errors?.email &&
+          novoUsuarioForm.get('email')?.touched
+        "
+        mensagem="E-mail no formato incorreto"
+      ></app-mensagem>
+    </h6>
+  </div>
+  <div class="form-group">
+    <input
+      placeholder="Nome completo"
+      class="form-control"
+      formControlName="fullName"
+    />
+    <h6>
+      <app-mensagem
+        *ngIf="
+          novoUsuarioForm.get('fullName')?.errors?.required &&
+          novoUsuarioForm.get('fullName')?.touched
+        "
+        mensagem="Nome é obrigatorio"
+      ></app-mensagem>
+    </h6>
+  </div>
+  <div class="form-group">
+    <input
+      placeholder="Usuário"
+      class="form-control"
+      formControlName="userName"
+    />
+    <h6>
+      <app-mensagem
+        *ngIf="novoUsuarioForm.get('userName')?.errors?.minusculo"
+        mensagem="O nome de usuário deser todo minusculo"
+      ></app-mensagem>
+      <app-mensagem
+        *ngIf="novoUsuarioForm.get('userName')?.errors?.usuarioExistente"
+        mensagem="O usuário ja existe"
+      ></app-mensagem>
+    </h6>
+  </div>
+  <div class="form-group">
+    <input
+      type="password"
+      placeholder="Senha"
+      class="form-control"
+      formControlName="password"
+    />
+    <h6>
+      <app-mensagem
+        *ngIf="novoUsuarioForm.errors?.senhaIgualUsuario"
+        mensagem="Senha deve ser diferente do usuario"
+      ></app-mensagem>
+    </h6>
+  </div>
+
+  <button class="btn btn-primary btn-block">Cadastrar</button>
+</form>
+
+<h6>
+  <p class="text-center">
+    Ja é usuário?&nbsp;&nbsp;<a [routerLink]="['']">Login!</a>
+  </p>
+</h6>
